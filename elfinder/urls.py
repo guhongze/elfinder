@@ -27,3 +27,11 @@ urlpatterns = [
         staff_member_required(ElfinderConnectorView.as_view()),
                               name='yawdElfinderConnectorView'),    
 ]
+
+from django.conf import settings
+if settings.DEBUG:
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': settings.MEDIA_ROOT, }),
+    ]
