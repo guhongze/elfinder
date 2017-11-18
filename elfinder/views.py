@@ -120,6 +120,6 @@ class ElfinderConnectorView(View):
 
         return self.output(cmd, request.POST)
 
-def finder(request):
-    if request.method == 'GET':
+class finder(View):
+    def get(self,request):
         return render_to_response('finder.html',locals())

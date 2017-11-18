@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.contrib.auth.views import login,logout
 from django.contrib.admin.views.decorators import staff_member_required
 from elfinder.views import ElfinderConnectorView,finder
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',finder,name='index'),
+    url(r'^$',login_required(finder.as_view()),name='index'),
     url(r'^accounts/login/$', login,name='login'),
     url(r'^accounts/logout/$',logout,name='logout'),  
     url(r'^yawd-connector/(?P<optionset>.+)/(?P<start_path>.+)/$',
