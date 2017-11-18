@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from exceptions import ElfinderErrorMessages
 from elfinder.connector import ElfinderConnector
 from elfinder.conf import settings as ls
-
+from django.shortcuts import render_to_response
 
 class ElfinderConnectorView(View):
     """
@@ -119,3 +119,7 @@ class ElfinderConnectorView(View):
             self.render_to_response({'error' : self.elfinder.error(ElfinderErrorMessages.ERROR_UPLOAD, ElfinderErrorMessages.ERROR_UPLOAD_TOTAL_SIZE)})
 
         return self.output(cmd, request.POST)
+
+def finder(request):
+    if request.method == 'GET':
+        return render_to_response('finder.html',locals())

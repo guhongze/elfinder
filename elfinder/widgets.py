@@ -18,7 +18,7 @@ class ElfinderWidget(Input):
     ``optionset``
         The key of the ELFINDER_CONNECTOR_OPTION_SETS setting to use as connector settings 
     """
-    input_type = 'hidden'
+    input_type = ''
     
     def __init__(self, optionset, start_path, attrs={'size':'42'}, options={}):
         
@@ -27,7 +27,7 @@ class ElfinderWidget(Input):
         
         #locate current locale
         self.current_locale = to_locale(get_language()) 
-
+        
     def _media(self):
         """
         Set the widget's javascript and css
@@ -74,7 +74,7 @@ class ElfinderWidget(Input):
             file_ = 'file : {}'
         
         elfinder = 'elfinder : %s' % json.dumps(self.options) 
- 
+        #'            $("#%(id)s").attr("disabled","disabled");\n' 
         html = ('%(super)s\n'
                 '<script>\n'
                 '    (function($) {\n'
@@ -102,5 +102,6 @@ class ElfinderWidget(Input):
                     'set' : _('Set'),
                     'clear' : _('Clear')
                 })
-
+        #print super(ElfinderWidget, self).render(name, value, attrs)
+        #print html
         return mark_safe(html)

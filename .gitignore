@@ -1,9 +1,2 @@
-/.project
-/.pydevproject
-/dist
-/yawd_elfinder.egg-info
-/.settings
-/tests
-/build
-/example_project.db
+/db.sqlite3
 /*.pyc
