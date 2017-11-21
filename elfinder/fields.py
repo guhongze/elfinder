@@ -114,7 +114,7 @@ class ElfinderField(models.Field):
     """
     
     description = "An elfinder file model field."
-    __metaclass__ = models.SubfieldBase
+    #__metaclass__ = models.SubfieldBase
 
     def __init__(self, optionset='default', start_path=None, *args, **kwargs):
         self.optionset = optionset
@@ -171,3 +171,8 @@ class ElfinderField(models.Field):
         }
         defaults.update(kwargs)
         return super(ElfinderField, self).formfield(**defaults)
+    
+    def from_db_value(self, value, expression, connection, context):
+        if value is None:
+            return value
+        return value  

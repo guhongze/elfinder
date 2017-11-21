@@ -18,21 +18,23 @@ from django.contrib.auth.views import login,logout
 from django.contrib.admin.views.decorators import staff_member_required
 from elfinder.views import ElfinderConnectorView,finder
 from django.contrib.auth.decorators import login_required
+import django
+from django.views.static import serve
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from distutils.version import StrictVersion
+from django.contrib.auth.views import LoginView,LogoutView    
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',login_required(finder.as_view()),name='index'),
-    url(r'^accounts/login/$', login,name='login'),
-    url(r'^accounts/logout/$',logout,name='logout'),  
-    url(r'^yawd-connector/(?P<optionset>.+)/(?P<start_path>.+)/$',
-        staff_member_required(ElfinderConnectorView.as_view()),
-                              name='yawdElfinderConnectorView'),    
+    url(r'^accounts/login/$', LoginView.as_view(template_name='admin/login.html'),name='login'),
+    url(r'^accounts/logout/$',LogoutView.as_view(template_name='registration/logged_out.html'),name='logout'),      
+    url(r'^yawd-connector/(?P<optionset>.+)/(?P<start_path>.+)/$',staff_member_required(ElfinderConnectorView.as_view()),name='yawdElfinderConnectorView'),    
 ]
 
-from django.conf import settings
 if settings.DEBUG:
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += [
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': settings.MEDIA_ROOT, }),
+        url(r'^media/(?P<path>.*)$', serve, { 'document_root': settings.MEDIA_ROOT, }),
     ]
