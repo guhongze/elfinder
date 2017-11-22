@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'elfinder',
+    'storages'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,3 +109,9 @@ STATICFILES_DIRS = [
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.sftpstorage.SFTPStorage'
+SFTP_STORAGE_HOST = ''
+SFTP_STORAGE_ROOT = '/'
+SFTP_STORAGE_INTERACTIVE = False
+SFTP_STORAGE_PARAMS={'port':22,'username':'root','password':'','timeout':3}
