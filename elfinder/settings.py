@@ -111,7 +111,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.sftpstorage.SFTPStorage'
-SFTP_STORAGE_HOST = ''
+SFTP_STORAGE_HOST = '127.0.0.1'
 SFTP_STORAGE_ROOT = '/'
 SFTP_STORAGE_INTERACTIVE = False
-SFTP_STORAGE_PARAMS={'port':22,'username':'root','password':'','timeout':3}
+SFTP_STORAGE_PARAMS={'port':22000,'username':'root','password':'','timeout':3}
