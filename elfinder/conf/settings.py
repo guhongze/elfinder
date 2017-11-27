@@ -206,6 +206,7 @@ ELFINDER_CONNECTOR_OPTION_SETS = {
         'roots' : [
             {
                 'id' : 'pdfid',
+                'alias' : '127.0.0.1',
                 'driver' : ElfinderVolumeStorage,
                 'storageClass': 'storages.backends.sftpstorage.SFTPStorage',
                 'keepAlive' : False,
