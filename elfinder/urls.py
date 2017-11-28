@@ -13,28 +13,9 @@ Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
-from django.contrib import admin
-from django.contrib.auth.views import login,logout
 from django.contrib.admin.views.decorators import staff_member_required
-from elfinder.views import ElfinderConnectorView,finder
-from django.contrib.auth.decorators import login_required
-import django
-from django.views.static import serve
-from django.conf import settings
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from distutils.version import StrictVersion
-from django.contrib.auth.views import LoginView,LogoutView    
+from elfinder.views import ElfinderConnectorView 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$',login_required(finder.as_view()),name='index'),
-    url(r'^accounts/login/$', LoginView.as_view(template_name='admin/login.html'),name='login'),
-    url(r'^accounts/logout/$',LogoutView.as_view(template_name='registration/logged_out.html'),name='logout'),      
     url(r'^yawd-connector/(?P<optionset>.+)/(?P<start_path>.+)/$',staff_member_required(ElfinderConnectorView.as_view()),name='yawdElfinderConnectorView'),    
 ]
-
-if settings.DEBUG:
-    urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += [
-        url(r'^media/(?P<path>.*)$', serve, { 'document_root': settings.MEDIA_ROOT, }),
-    ]

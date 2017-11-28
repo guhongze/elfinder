@@ -53,7 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'elfinder.urls'
+ROOT_URLCONF = 'example_project.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'elfinder.wsgi.application'
+WSGI_APPLICATION = 'example_project.wsgi.application'
 
 
 # Database
@@ -111,7 +111,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.sftpstorage.SFTPStorage'
-#SFTP_STORAGE_HOST = '127.0.0.1'
-#SFTP_STORAGE_ROOT = '/'
-#SFTP_STORAGE_INTERACTIVE = False
-#SFTP_STORAGE_PARAMS={'port':22,'username':'root','password':'','timeout':3}

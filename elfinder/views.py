@@ -129,7 +129,3 @@ class ElfinderConnectorView(View):
             self.render_to_response({'error' : self.elfinder.error(ElfinderErrorMessages.ERROR_UPLOAD, ElfinderErrorMessages.ERROR_UPLOAD_TOTAL_SIZE)})
 
         return self.output(cmd, request.POST)
-
-class finder(View):
-    def get(self,request):
-        return render_to_response('finder.html',locals())

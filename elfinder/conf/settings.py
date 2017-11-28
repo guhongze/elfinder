@@ -6,14 +6,14 @@ from elfinder.volumes.storage import ElfinderVolumeStorage
 ELFINDER_JS_URLS = {
     'a_jquery' : 'http://apps.bdimg.com/libs/jquery/1.8.2/jquery.min.js',
     'b_jqueryui' : 'http://apps.bdimg.com/libs/jqueryui/1.9.2/jquery-ui.min.js',
-    'c_elfinder' : '%splugins/elfinder/js/elfinder.full.js' % settings.STATIC_URL,
+    'c_elfinder' : '%selfinder/js/elfinder.full.js' % settings.STATIC_URL,
 }
 #allow to override any key in the project settings file   
 ELFINDER_JS_URLS.update(getattr(settings, 'ELFINDER_JS_URLS', {}))
 
 ELFINDER_CSS_URLS = {
     'a_jqueryui' : 'http://apps.bdimg.com/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css',
-    'b_elfinder' : '%splugins/elfinder/css/elfinder.min.css' % settings.STATIC_URL
+    'b_elfinder' : '%selfinder/css/elfinder.min.css' % settings.STATIC_URL
 }
 #allow to override any key in the project settings file   
 ELFINDER_CSS_URLS.update(getattr(settings, 'ELFINDER_CSS_URLS', {}))
