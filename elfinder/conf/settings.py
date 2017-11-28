@@ -201,7 +201,34 @@ ELFINDER_CONNECTOR_OPTION_SETS = {
             }
         ]  
     },
-    'pdf' : {
+    'pdf':{
+        'debug':True,
+        'roots':[
+            {
+                'id' : 'pdf',
+                'driver' : ElfinderVolumeLocalFileSystem,
+                'path' : join(settings.MEDIA_ROOT, u'pdf'),
+                'alias' : 'pdf',
+                'URL' : '%spdf/' % settings.MEDIA_URL,
+                'onlyMimes' : ['application/pdf',],
+                'uploadAllow' : ['application/pdf',],
+                'uploadDeny' : ['all',],
+                'uploadMaxSize' : '128m',
+                'disabled' : ['mkfile', 'archive'],
+                'accessControl' : fs_standard_access,
+                'attributes' : [
+                    {
+                        'pattern' : r'\.tmb$',
+                        'read' : True,
+                        'write': True,
+                        'hidden' : True,
+                        'locked' : True
+                    },
+                ],
+            }             
+        ]
+        },
+    'sftp' : {
         'debug' : True,
         'roots' : [
             {
@@ -209,8 +236,8 @@ ELFINDER_CONNECTOR_OPTION_SETS = {
                 'alias' : '127.0.0.1',
                 'driver' : ElfinderVolumeStorage,
                 'storageClass': 'storages.backends.sftpstorage.SFTPStorage',
-                'keepAlive' : False,
-                'cache' : 3                
+                'keepAlive' : True,
+                'cache' : 300
             } 
         ]  
     },    

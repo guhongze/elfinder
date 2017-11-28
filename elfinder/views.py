@@ -104,9 +104,12 @@ class ElfinderConnectorView(View):
         """
         used in get method calls
         """
-        optinon_sets = self.get_optionset(**kwargs)
-        optinon_sets['roots'][0]['storageKwArgs'] = {'host':'127.0.0.1','params':{'port':22,'username':'root','password':'','timeout':3},'root_path':'/','interactive':False}
-        self.elfinder = ElfinderConnector(optinon_sets, request.session)
+        if kwargs['optionset'] == 'sftp':
+            optinon_sets = self.get_optionset(**kwargs)
+            optinon_sets['roots'][0]['storageKwArgs'] = {'host':'127.0.0.1','params':{'port':22,'username':'test','password':'password','timeout':30},'root_path':'/','interactive':False}
+            self.elfinder = ElfinderConnector(optinon_sets, request.session)
+        else:
+            self.elfinder = ElfinderConnector(self.get_optionset(**kwargs), request.session)
         return self.output(self.get_command(request.GET), request.GET)
 
     def post(self, request, *args, **kwargs):
@@ -114,11 +117,12 @@ class ElfinderConnectorView(View):
         called in post method calls.
         It only allows for the 'upload' command
         """
-        #self.elfinder = ElfinderConnector(self.get_optionset(**kwargs), request.session)
-        optinon_sets = self.get_optionset(**kwargs)
-        optinon_sets['roots'][0]['storageKwArgs'] = {'host':'127.0.0.1','params':{'port':22,'username':'root','password':'','timeout':3},'root_path':'/','interactive':False}
-        self.elfinder = ElfinderConnector(optinon_sets, request.session)
-        
+        if kwargs['optionset'] == 'sftp':
+            optinon_sets = self.get_optionset(**kwargs)
+            optinon_sets['roots'][0]['storageKwArgs'] = {'host':'127.0.0.1','params':{'port':22,'username':'test','password':'password','timeout':30},'root_path':'/','interactive':False}
+            self.elfinder = ElfinderConnector(optinon_sets, request.session)
+        else:
+            self.elfinder = ElfinderConnector(self.get_optionset(**kwargs), request.session)        
         cmd = self.get_command(request.POST)
         
         if not cmd in ['upload']:
