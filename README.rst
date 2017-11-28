@@ -37,15 +37,14 @@ for information on how to install the demo and use yawd-elfinder.
 Screenshots
 ===========
 
-The admin widget
-
-.. image:: http://static.yawd.eu/www/yawd-elfinder-widget.jpg
-
-Elfinder in action
+Example Project Preview
 
 .. image:: screenshots/example_project_preview.jpg 
 
-.. image:: https://d2weczhvl823v0.cloudfront.net/yawd/yawd-elfinder/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
+The admin widget
 
+.. image:: screenshots/admin_preview1.png
+
+.. image:: screenshots/admin_preview2.jpg
+
+.. image:: screenshots/admin_preview3.png
