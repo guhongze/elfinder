@@ -69,7 +69,7 @@ ELFINDER_CONNECTOR_OPTION_SETS = {
                 #mimetypes allowed to upload
                 'uploadAllow' : ['all',],
                 #mimetypes not allowed to upload
-                'uploadDeny' : ['all',],
+                #'uploadDeny' : ['all',],
                 #order to proccess uploadAllow and uploadDeny options
                 'uploadOrder' : ['deny', 'allow'],
                 #maximum upload file size. NOTE - this is size for every uploaded files

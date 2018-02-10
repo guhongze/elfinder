@@ -73,9 +73,9 @@ class ElfinderConnectorView(View):
                     try:
                         args[arg] = src.get(name).strip()
                     except:
+                        print 'except'
                         args[arg] = src.get(name)
         args['debug'] = src['debug'] if 'debug' in src else False
-
         return self.render_to_response(self.elfinder.execute(cmd, **args))
     
     def get_command(self, src):

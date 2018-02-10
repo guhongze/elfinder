@@ -4,7 +4,7 @@
 {% block css%}
 <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css">
 <!-- elFinder CSS (REQUIRED) -->
-<link rel="stylesheet" type="text/css" href="{% static "elfinder/css/elfinder.min.css"%}">
+<link rel="stylesheet" type="text/css" href="{% static "elfinder/css/elfinder.full.css"%}">
 {%endblock%}
 {% block content %}
         <div class="col-md-12">
@@ -21,7 +21,7 @@
 {% block js %}
 <script src="{% static "plugins/jquery-ui/jquery-ui.js"%}"></script>
 <!-- elFinder JS (REQUIRED) -->
-<script src="{% static "elfinder/js/elfinder.min.js"%}"></script>
+<script src="{% static "elfinder/js/elfinder.full.js"%}"></script>
 <script type="text/javascript" charset="utf-8">
 (function($){
         var i18nPath = 'js/i18n',
@@ -36,8 +36,10 @@
                                 var elfinderInstance = $('#finder').elfinder({
                                         resizable: false,
                                         height: '100%',	
-                                        url : '/elfinder/yawd-connector/sftp/default/', // connector URL (REQUIRED)
-                                        lang: lng                    // language (OPTIONAL)
+                                        url : '/elfinder/yawd-connector/default/Files/', // connector URL (REQUIRED)
+                                        lang: lng,                    // language (OPTIONAL)
+                                        debug: ['error', 'warning', 'event-destroy'],
+                                        dragUploadAllow: true,
                                 }).elfinder('instance');
 
                                 // set document.title dynamically etc.

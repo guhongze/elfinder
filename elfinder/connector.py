@@ -14,7 +14,7 @@ class ElfinderConnector:
     _netDrivers = {}
     _commands = {
         'open' : { 'target' : False, 'tree' : False, 'init' : False, 'mimes' : False },
-        'ls' : { 'target' : True, 'mimes' : False },
+        'ls' : { 'target' : True, 'mimes' : False ,'intersect[]':False},
         'tree' : { 'target' : True },
         'parents' : { 'target' : True },
         'tmb' : { 'targets' : True },
@@ -127,7 +127,7 @@ class ElfinderConnector:
     def execute(self, cmd, **kwargs):
         """
         Exec command and return result
-        """        
+        """
         if not self._loaded:
             return { 'error' : self.error(ElfinderErrorMessages.ERROR_CONF, ElfinderErrorMessages.ERROR_CONF_NO_VOL)}
         
@@ -171,7 +171,6 @@ class ElfinderConnector:
                 'volumes' : [v.debug() for v in self._volumes.values()],
                 'mountErrors' : self._mountErrors
             }
-
         return result
 
     def _open(self, target='', init=False, tree=False):
