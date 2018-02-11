@@ -68,6 +68,7 @@ ELFINDER_CONNECTOR_OPTION_SETS = {
                 #'uploadOverwrite' : True,
                 #mimetypes allowed to upload
                 'uploadAllow' : ['all',],
+                'mimeDetect' : 'internal',
                 #mimetypes not allowed to upload
                 'uploadDeny' : ['all',],
                 #order to proccess uploadAllow and uploadDeny options
