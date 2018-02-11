@@ -60,7 +60,9 @@ class ElfinderVolumeStorage(ElfinderVolumeDriver):
         and `url() <https://docs.djangoproject.com/en/dev/ref/files/storage/#django.core.files.storage.Storage.url>`_
         methods to be valid.
         """
-        
+        if "key_label" in opts['storageKwArgs'].keys():
+            self._key_label = opts['storageKwArgs']['key_label']
+            del opts['storageKwArgs']['key_label']        
         if not 'storage' in opts:
             if not 'storageClass' in opts:
                 opts['storage']  = FileSystemStorage()
@@ -139,7 +141,8 @@ class ElfinderVolumeStorage(ElfinderVolumeDriver):
             if isinstance(self._options['storage'], FileSystemStorage):
                 self._options['rmDir'] = self._rmdir_callable
             elif not 'rmdir' in self._options['disabled']:
-                self._options['disabled'].append('rmdir')
+                pass
+                #self._options['disabled'].append('rmdir')
 
     #*********************************************************************#
     #*                  API TO BE IMPLEMENTED IN SUB-CLASSES             *#
@@ -258,8 +261,32 @@ class ElfinderVolumeStorage(ElfinderVolumeDriver):
         """
         Attempt to read the file's mimetype.
         """
+        """
+        The function below is implemented to handle linux system sys dev and proc directory
+        bugs
+        """
+        file_name = str(path.split("/")[-1]).strip()
+
+        if re.search(r'^\./proc/', path) or re.search(r'^\./sys/', path):  # handler /proc /path
+            if file_name in self._files:  # handler is files
+                try:
+                    fp = self._fopen(path)
+                    mime = magic.Magic(mime=True).from_buffer(fp.read(10))  # read 10 bytes
+                    fp.close()
+                    return mime
+                except:
+                    return "application/empty"
+
+        # not  handler /dev directory slink
+        if re.search(r'^\./dev/', path) and self._files[file_name] in 'l':
+            return "application/empty"
+
+        if file_name in self._files:
+            if self._files[file_name] not in '-l':  # is not normal file link
+                return "application/empty"
+
         fp = self._fopen(path)
-        mime = magic.Magic(mime=True).from_buffer(fp.read())
+        mime = magic.Magic(mime=True).from_buffer(fp.read(10))# read 10 bytes
         fp.close()
         return mime
     

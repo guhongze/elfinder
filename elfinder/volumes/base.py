@@ -33,7 +33,10 @@ class ElfinderVolumeDriver(object):
         """
         Default constructor
         """
-
+        # files is in type key file value type
+        self._files = {}
+        # key label
+        self._key_label = ''
         #logger
         self.logger = logging.getLogger(__name__)
         #Volume id - used as prefix for files hashes
@@ -121,6 +124,8 @@ class ElfinderVolumeDriver(object):
             'acceptedName' : r'^[^\.].*', #<-- DONT touch this! Use constructor options to overwrite it!
             #callable to control file permissions
             'accessControl' : None,
+            #  allow  rmDir
+            'rmDir' : None,            
             #default permissions. Do not set hidden/locked here - take no effect
             'defaults' : {
                 'read' : True,
@@ -1172,13 +1177,16 @@ class ElfinderVolumeDriver(object):
 
                 if stat['mime'] == 'directory': #handle directories
                     if self._options['checkSubfolders']:
-                        if 'dirs' in stat:
-                            if not stat['dirs']:
-                                del stat['dirs']
-                        elif 'alias' in stat and stat['alias'] and 'target' in stat and stat['target']:
-                            stat['dirs'] = int('dirs' in stat_cache[stat['target']]) if stat['target'] in stat_cache else int(self._subdirs(stat['target'])) 
-                        elif self._subdirs(path):
-                            stat['dirs'] = 1
+                        try:
+                            if 'dirs' in stat:
+                                if not stat['dirs']:
+                                    del stat['dirs']
+                            elif 'alias' in stat and stat['alias'] and 'target' in stat and stat['target']:
+                                stat['dirs'] = int('dirs' in stat_cache[stat['target']]) if stat['target'] in stat_cache else int(self._subdirs(stat['target'])) 
+                            elif self._subdirs(path):
+                                stat['dirs'] = 1
+                        except:
+                            stat['mime'] = 'application/empty'                        
                     else:
                         stat['dirs'] = 1
                 else: #file
