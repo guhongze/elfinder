@@ -65,6 +65,8 @@ class ElfinderConnectorView(View):
                 args['FILES'] = self.request.FILES
             elif name == 'targets':
                 args[name] = src.getlist('targets[]')
+            elif name == 'upload_path':
+                args[name] = src.getlist('upload_path[]')
             else:
                 arg = name
                 if name.endswith('_'):
@@ -73,7 +75,6 @@ class ElfinderConnectorView(View):
                     try:
                         args[arg] = src.get(name).strip()
                     except:
-                        print 'except'
                         args[arg] = src.get(name)
         args['debug'] = src['debug'] if 'debug' in src else False
         return self.render_to_response(self.elfinder.execute(cmd, **args))
