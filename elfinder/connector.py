@@ -587,6 +587,7 @@ class ElfinderConnector:
                     return {'error': self.error(ElfinderErrorMessages.ERROR_UPLOAD,
                                                 ElfinderErrorMessages.ERROR_TRGDIR_NOT_FOUND, '#%s' % new_target),
                             'header': header}
+
                 for file_index in all_[item]:
                     try:
                         #if upload files number exceed 1 it will cause a weird bug,the connector can't find the target directory.

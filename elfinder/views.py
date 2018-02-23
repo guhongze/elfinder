@@ -76,6 +76,10 @@ class ElfinderConnectorView(View):
                         args[arg] = src.get(name).strip()
                     except:
                         args[arg] = src.get(name)
+        if cmd == 'mkdir':
+            args['name'] = src.getlist('dirs[]') if 'dirs[]' in src else src.getlist('name')
+        elif cmd == "upload":
+            args['upload_path'] = src.getlist('upload_path[]') if 'upload_path[]' in src else False
         args['debug'] = src['debug'] if 'debug' in src else False
         return self.render_to_response(self.elfinder.execute(cmd, **args))
     
