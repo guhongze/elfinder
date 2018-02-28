@@ -1270,7 +1270,11 @@ class ElfinderVolumeDriver(object):
         for stat in self._get_scandir(path):
             size = self._size(self._join_path(path, stat['name'])) if stat['mime'] == 'directory' and stat['read'] else stat['size']
             if (size > 0):
-                result += size
+                try:
+                    result += size
+                except TypeError:
+                    pass
+
 
         self._options['checkSubfolders'] = subdirs
         return result
